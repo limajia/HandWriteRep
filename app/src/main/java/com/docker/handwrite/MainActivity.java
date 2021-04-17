@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.docker.handwrite.handeventbus.EventBusActivity;
+import com.docker.handwrite.handglide.GlideActivity;
 
 /**
  * @author docker
@@ -15,6 +16,7 @@ import com.docker.handwrite.handeventbus.EventBusActivity;
 public class MainActivity extends AppCompatActivity {
 
     private Button mEventBusBtn;
+    private Button mGlideBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, EventBusActivity.class);
+                startActivity(intent);
+            }
+        });
+        //2.handGlide
+        mGlideBtn = findViewById(R.id.glide_btn);
+        mGlideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GlideActivity.class);
                 startActivity(intent);
             }
         });

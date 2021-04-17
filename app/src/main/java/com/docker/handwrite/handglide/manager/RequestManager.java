@@ -86,4 +86,14 @@ public class RequestManager {
         size *= 2; //两倍核数的线程
         executorService = Executors.newFixedThreadPool(size);
     }
+
+    // 这里收集所有请求
+    public void addBitmapRequest(BitmapRequest bitmapRequest) {
+        if (bitmapRequest == null) {
+            return;
+        }
+        if (!requestQueue.contains(bitmapRequest)) {
+            requestQueue.add(bitmapRequest); // 将请求加入队列
+        }
+    }
 }
