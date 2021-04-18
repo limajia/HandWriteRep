@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.docker.handwrite.handbutterknife.TestButterKnifeMainActivity;
 import com.docker.handwrite.handeventbus.EventBusActivity;
 import com.docker.handwrite.handglide.GlideActivity;
 
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mEventBusBtn;
     private Button mGlideBtn;
+    private Button mButterknifeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GlideActivity.class);
+                startActivity(intent);
+            }
+        });
+        //3.handbutterknife
+        mButterknifeBtn = findViewById(R.id.butterknife_btn);
+        mButterknifeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TestButterKnifeMainActivity.class);
                 startActivity(intent);
             }
         });

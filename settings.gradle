@@ -1,2 +1,4 @@
+include ':lib-annotation'
+include ':lib-processor'
 include ':app'
 rootProject.name = "HandWrite"
