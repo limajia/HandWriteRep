@@ -19,7 +19,9 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 
-
+// https://www.jianshu.com/p/4c0fbe5b27a2/
+// javaPoet其实就是对apt的封装，生成新的文件
+// 若使用autoserver库，其作用是自动生成meta-info数据
 public class BindingProcessor extends AbstractProcessor {
     Filer filer;
 
@@ -30,7 +32,21 @@ public class BindingProcessor extends AbstractProcessor {
     }
 
     @Override
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnvironment) {
+    public boolean process(Set<? extends TypeElement> annotations,
+                           RoundEnvironment roundEnvironment) {
+        //test//
+        System.out.println("=========开始=============");
+        Set<? extends Element> rootElements = roundEnvironment.getRootElements();
+        for (Element rootElement : rootElements) {
+            System.out.println(rootElement.toString());
+        }
+        System.out.println("======================");
+        Set<? extends Element> elementsAnnotatedWith = roundEnvironment.getElementsAnnotatedWith(BindView.class);
+        for (Element element : elementsAnnotatedWith) {
+            System.out.println(element.toString());
+        }
+        System.out.println("=========结束=============");
+        //test//
         for (Element element : roundEnvironment.getRootElements()) {
             String packageStr = element.getEnclosingElement().toString();
             String classStr = element.getSimpleName().toString();
@@ -68,6 +84,48 @@ public class BindingProcessor extends AbstractProcessor {
         }
         return false;
     }
+    /*
+    =========开始=============
+    com.docker.handwrite.handglide.MD5
+    com.docker.handwrite.handglide.diapatcher.BitmapDispatcher
+    com.docker.handwrite.handglide.GlideActivity
+    com.docker.handwrite.handglide.cache.DoubleLruCache
+    com.docker.handwrite.handglide.cache.BitmapCache
+    com.docker.handwrite.handglide.cache.MemoryLruCache
+    com.docker.handwrite.handglide.cache.DiskBitmapCache
+    com.docker.handwrite.handglide.cache.disk.DiskLruCache
+    com.docker.handwrite.handglide.cache.disk.Util
+    com.docker.handwrite.handglide.cache.disk.StrictLineReader
+    com.docker.handwrite.handglide.manager.RequestManager
+    com.docker.handwrite.handglide.request.BitmapRequest
+    com.docker.handwrite.handglide.request.RequestListener
+    com.docker.handwrite.handglide.Glide
+    com.docker.handwrite.handeventbus.core.DoSubscribe
+    com.docker.handwrite.handeventbus.core.SubscribleMethod
+    com.docker.handwrite.handeventbus.core.DoEventBus
+    com.docker.handwrite.handeventbus.core.DoThreadMode
+    com.docker.handwrite.handeventbus.EventBusActivity
+    com.docker.handwrite.handbutterknife.lib_reflection.ReflectBinding
+    com.docker.handwrite.handbutterknife.lib_processor.sample.MainActivityBind
+    com.docker.handwrite.handbutterknife.lib_processor.AptBinding
+    com.docker.handwrite.handbutterknife.lib_processor.src.BindingProcessor
+    com.docker.handwrite.handbutterknife.TestButterKnifeMainActivity
+    com.docker.handwrite.MainActivity
+    com.docker.handwrite.BuildConfig
+            ======================
+    com.docker.handwrite.handbutterknife.TestButterKnifeMainActivity
+            mTextView
+            =========结束=============
+    警告: No SupportedSourceVersion annotation found on com.docker.lib_processor.BindingProcessor, returning RELEASE_6.
+    警告: 来自注释处理程序 'org.gradle.api.internal.tasks.compile.processing.TimeTrackingProcessor' 的受支持 source 版本 'RELEASE_6' 低于 -source '1.7'
+            =========开始=============
+    com.docker.handwrite.handbutterknife.TestButterKnifeMainActivityBinding
+            ======================
+            =========结束=============
+            =========开始=============
+            ======================
+            =========结束=============
+    */
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {

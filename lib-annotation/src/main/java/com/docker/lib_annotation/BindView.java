@@ -11,9 +11,9 @@ import java.lang.annotation.Target;
  * @author docker
  */
 @Retention(RetentionPolicy.RUNTIME) //在运行时使用 则需要这个 AnnotationProcess改为source
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.TYPE})
 public @interface BindView {
-    int value();
+    int value() default 0;
 
 //    int id(); // 赋值属性 方法的样子
 //
